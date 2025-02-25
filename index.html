@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bassu H G - Software Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Keep custom theme variables and animations -->
+    <style>
+        :root {
+            --primary-color: #34efdc;
+            --secondary-color: #1abc9c;
+            --dark-color: #1c1c1c;
+            --light-color: #e0e0e0;
+            --background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
+            --text-color: #e0e0e0;
+            --card-bg: rgba(255,255,255,0.05);
+        }
+
+        [data-theme="light"] {
+            --primary-color: #ff6b00;
+            --background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            --text-color: #333;
+            --card-bg: rgba(0,0,0,0.05);
+        }
+
+        /* Keep existing animations */
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        @keyframes wavyText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes rgb-border {
+            0% { border-color: #ff0000; }
+            33% { border-color: #00ff00; }
+            66% { border-color: #0000ff; }
+            100% { border-color: #ff0000; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Add mobile menu button styles */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ff9800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff9800;
+        }
+
+        /* Updated Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: transparent !important;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Add animated background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                #ff0000, #ff7300, #fffb00, #48ff00, 
+                #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400%;
+            opacity: 0.15;
+            z-index: 1;
+            animation: glowing 20s linear infinite;
+            filter: blur(20px);
+        }
+
+        /* Add animation keyframes */
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        /* Update hero content z-index */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: none;
+            box-shadow: none;
+        }
+
+        #particles-js {
+            z-index: 1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.5;
+        }
+
+        .hero::after {
+            display: none;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #ff9800;
+            animation: wavyText 3s infinite;
+            background: linear-gradient(45deg, #ff9800, #ff4081, #ff9800);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Add new wavyText animation */
+        @keyframes wavyText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .cta-btn {
+            padding: 0.75rem 1.5rem;
+            background: #ff9800;
+            color: #1c1c1c;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .cta-btn:hover {
+            background: #e68900;
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            position: relative;
+            z-index: 2;
+            background: rgba(10, 25, 47, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            margin: 20px;
+            border-radius: 15px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: #ff9800;
+            position: relative;
+            display: inline-block;
+            animation: slideIn 1s ease-out;
+        }
+
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: #ff9800;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: all 0.3s ease;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .skill-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ff9800;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            border: 2px solid #ff0000;
+            animation: rgb-border 3s infinite;
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(var(--primary-color), 0.3);
+        }
+
+        .project-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        /* Contact */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff9800;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1002;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Center About Me content */
+        .about {
+            text-align: center;
+        }
+        #picture{
+            border-radius: 50%;
+            width: 120px;  /* Made even smaller */
+            height: 120px; /* Keep aspect ratio square */
+            margin: 1rem auto;
+            object-fit: cover;
+            display: block;
+            border: 3px solid #ff9800;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            z-index: 1001;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+
+        /* RGB Hover Effect */
+        @keyframes rgb-border {
+            0% { border-color: #ff0000; }
+            33% { border-color: #00ff00; }
+            66% { border-color: #0000ff; }
+            100% { border-color: #ff0000; }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text Animation */
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Remove hover glow effect */
+        .skill-card:hover i {
+            animation: none;
+        }
+
+        /* Animated gradient background */
+        body {
+            background: #0a192f;
+            background: linear-gradient(to bottom, #0a192f 0%, #0c1220 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 4px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes gradientBG {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Update text colors */
+        body, p, h1, h2, h3, li {
+            color: #ffffff;
+        }
+
+        /* Enhanced mobile navigation */
+        .mobile-menu-btn {
+            width: 30px;
+            height: 25px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .hamburger-lines {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .hamburger-lines span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: #ffffff;
+            transition: transform 0.3s ease-in-out, opacity 0.2s;
+        }
+
+        .mobile-menu-btn.active .hamburger-lines span:nth-child(1) {
+            transform: translateY(11px) rotate(45deg);
+        }
+
+        .mobile-menu-btn.active .hamburger-lines span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active .hamburger-lines span:nth-child(3) {
+            transform: translateY(-11px) rotate(-45deg);
+        }
+
+        /* Mobile Navigation Dropdown */
+        .nav-links {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.3s ease-in-out;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                color: #ffffff;
+                font-size: 1.5rem;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .nav-links.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav-links a:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links a:nth-child(2) { transition-delay: 0.2s; }
+            .nav-links a:nth-child(3) { transition-delay: 0.3s; }
+            .nav-links a:nth-child(4) { transition-delay: 0.4s; }
+        }
+
+        /* Update project card text color */
+        .project-info p, .project-info li {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+  
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                Cybersecurity|Dataanalytist |frontend Dvp –B.G
+            </div>
+            <button class="mobile-menu-btn">
+                <div class="hamburger-lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div id="particles-js"></div>
+        <div class="container hero-content">
+            <img src="profile-p.jpg" id="picture" alt="Profile Image">
+            <h1>Basavaraj H G </h1>
+            <p>Software Engineer&amp; &amp; Data analytist</p>
+            <a href="#projects" class="cta-btn">View My Work</a>
+            <div class="social-links" style="margin-top: 2rem;">
+                <a href="https://github.com/BasuG63"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/basavaraj-h-gurikar-95b739284"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+            </div>
+            <p> I am a Cybersecurity Specialist, Frontend Developer, and Data Analyst with a passion for building secure, user-friendly, and data-driven applications. With expertise in penetration testing, web security, interactive UI/UX design, and data analytics, I specialize in creating solutions that enhance security, optimize performance, and provide actionable insights. My strong foundation in frontend development, cybersecurity strategies, and data visualization enables me to bridge the gap between security, user experience, and data-driven decision-making.
+            </p>
+            <h3>What I Do</h3>
+            <ul>
+                💡🛡 Cybersecurity & Penetration Testing:Identifying vulnerabilities, performing ethical hacking, and implementing security measures to safeguard applications and data. <br>  
+                🎨Frontend Development:Crafting responsive, user-friendly, and visually engaging web applications using modern UI/UX principles. <br>  
+                📊 Data Analytics & Visualization:Extracting insights from data, creating interactive dashboards, and enabling data-driven decision-making. <br>  
+                🔍 Security & Performance Optimization: Enhancing web security, improving application speed, and ensuring a seamless user experience. <br>
+                
+            </ul>
+            <h3>My Mission</h3>  
+            <p>  
+                I am dedicated to securing digital experiences, building interactive web applications, and transforming data into actionable insights. Whether it's enhancing cybersecurity, developing seamless frontend solutions, or uncovering patterns through data analytics, my goal is to create secure, efficient, and user-friendly digital innovations.  
+            </p>  
+            <p>Let’s build a safer and smarter future together! 🚀</p>  
+            
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Skills</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-html5"></i>
+                    <h3>HTML</h3>
+                    <p>Building structured web pages</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-css3-alt"></i>
+                    <h3>CSS</h3>
+                    <p>Styling and designing web content</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript</h3>
+                    <p>Interactive and dynamic web development</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Python</h3>
+                    <p>Versatile programming for automation and security</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>C</h3>
+                    <p>Low-level programming and system development</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>SQL</h3>
+                    <p>Database management and querying</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Networking</h3>
+                    <p>Understanding and managing network systems</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Penetration Testing</h3>
+                    <p>Identifying and securing vulnerabilities</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Power BI</h3>
+                    <p>Data analytics and visualization</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projects</h2>
+            </div>
+            <div class="projects-grid">
+                <!-- Updated Project 1 -->
+                <div class="project-card">
+                    <img src="E-asst.png" class="project-img" alt="AI-Based News Web App">
+                    <div class="project-info">
+                        <h2>e-Virtual Study Assistant</h2>  
+
+                        <!-- Skills used line updated -->
+                        <p><strong>Skills used:</strong> HTML, CSS, JavaScript, Web Speech API, Flask, Python</p>  
+                        
+                        <ul>  
+                            <li>Developed a web-based study assistant to help students manage their study schedules and access resources efficiently.</li>  
+                            <li>Integrated Web Speech API for voice-activated commands, enabling hands-free interaction with the assistant.</li>  
+                            <li>Implemented a task and schedule management system to help students organize study sessions.</li>  
+                            <li>Provided access to educational resources, including notes, videos, and references, for an enhanced learning experience.</li>  
+                            <li>Designed an intuitive and responsive user interface for a seamless and interactive user experience.</li>  
+                        </ul> 
+                    </div>
+                </div>
+                <!-- Updated Project 2 with new details -->
+                <div class="project-card">
+                    <img src="prj2.png" class="project-img" alt="College Fest Website">
+                    <div class="project-info">
+                        <h3>College Fest Management Website</h3>
+                        <p><strong>Technologies Used:</strong> HTML, Tailwind CSS, Flask (Python), MySQL</p>
+                        <p>
+                            Project Overview: Developed a dynamic and responsive website for college fest event management, registrations, and information sharing. The platform provides an intuitive user experience, allowing students to register for events, view schedules, and get real-time updates.
+                        </p>
+                        <ul>
+                            <li>✅ User Authentication: Secure login and registration for participants and organizers.</li>
+                            <li>✅ Event Registration: Automated fee calculation for solo and group events.</li>
+                            <li>✅ Real-Time Updates: Dynamic announcements and schedules.</li>
+                            <li>✅ Admin Dashboard: Manage event entries, registrations, and participant details.</li>
+                            <li>✅ Responsive &amp; Fast UI: Tailwind CSS for a seamless, modern user experience.</li>
+                        </ul>
+                        <p>
+                            <strong>Impact &amp; Outcome:</strong><br>
+                            🔹 Streamlined event registration, reducing manual paperwork.<br>
+                            🔹 Improved accessibility with a mobile-friendly design.<br>
+                            🔹 Enabled efficient data management for organizers.<br>
+                            🔹 Successfully hosted hundreds of participants.
+                        </p>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+
+  
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/BasuG63"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/basavaraj-h-gurikar-95b739284"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2025 Basavaraj H G . All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').style.background = 'rgba(44, 62, 80, 0.95)';
+            } else {
+                document.querySelector('.navbar').style.background = 'rgba(44, 62, 80, 0.7)';
+            }
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.setAttribute('data-theme', 
+                document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
+            );
+            themeToggle.querySelector('i').classList.toggle('fa-sun');
+            themeToggle.querySelector('i').classList.toggle('fa-moon');
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Toggle menu icon
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close menu when clicking on links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar')) {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Add fade-in class to elements you want to animate
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('fade-in');
+            observer.observe(section);
+        });
+
+        document.querySelectorAll('.skill-card, .project-card').forEach(element => {
+            element.classList.add('fade-in');
+            observer.observe(element);
+        });
+
+        // Particles configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 50,
+                    density: {
+                        enable: true,
+                        value_area: 1000
+                    }
+                },
+                color: {
+                    value: ["#ffffff", "#4a90e2", "#50E3C2"]
+                },
+                shape: {
+                    type: "circle"
+                },
+                opacity: {
+                    value: 0.3,
+                    random: true
+                },
+                size: {
+                    value: 2,
+                    random: true
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Enhanced mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
+
+        // Enhanced mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Prevent body scrolling when menu is open
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
